@@ -6,35 +6,35 @@ dqz
 プレイ人数
 ----------
 
-3～5名(＋1名)
+3～5名(＋1名)  
 ※ プレイヤーの他に“ゲームマスター”が必要です。ゲームマスターはプレイヤーの誰かが兼任することもできます。
 
 遊ぶのに必要なモノ
 -----------------
 
-* 各種カード
-→ [『カードの作り方』](https://github.com/fullkawa/dqz/how_to_make.md) を参考に自作して下さい。
-* ゆうしゃトークン
+* 各種カード  
+→ [『カードの作り方』](https://github.com/fullkawa/dqz/blob/master/how_to_make.md) を参考に自作して下さい。
+* ゆうしゃトークン  
 → “ゆうしゃ”が誰であるかを示す目印です。コイン、フィギュア…目印になれば何を使っても構いません。
-* ダイス
+* ダイス  
 → 6面ダイス(いわゆる“普通の”サイコロ) 2個
 
 遊び方
 ------
 
-→ [『遊び方』](https://github.com/fullkawa/dqz/how_to_play.md) を参考にして下さい。
+→ [『遊び方』](https://github.com/fullkawa/dqz/blob/master/how_to_play.md) を参考にして下さい。
 
 ルール
 ------
 
-→ [『ルール』](https://github.com/fullkawa/dqz/rule.md) を参考にして下さい。
+→ [『ルール』](https://github.com/fullkawa/dqz/blob/master/rule.md) を参考にして下さい。
 
 ライセンス
 ----------
 
-![クリエイティブ・コモンズ・ライセンス](http://i.creativecommons.org/l/by-nc/2.1/jp/88x31.png)
-dqzは [Creative Commons 表示 - 非営利 2.1 日本 License](http://creativecommons.org/licenses/by-nc/2.1/jp/) で公開されています。
+![クリエイティブ・コモンズ・ライセンス](http://i.creativecommons.org/l/by-nc/2.1/jp/88x31.png)  
+dqzは [Creative Commons 表示 - 非営利 2.1 日本 License](http://creativecommons.org/licenses/by-nc/2.1/jp/) で公開されています。  
 
-よって、あなたはこのリポジトリをForkし、ゲームのルール・カードデザイン等を自由に修正することができます！
-dqzは"open-design-game"でもあるのです。
-→ ["open-design-game"とは？](http://open-design-games.net/index.php/about)
+よって、あなたはこのリポジトリをForkし、ゲームのルール・カードデザイン等を自由に修正することができます！  
+dqzは"open-design-game"でもあるのです。  
+→ ["open-design-game"とは？](http://open-design-games.net/index.php/about)  
