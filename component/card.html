@@ -3,8 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <title>dqz カード</title>
+<!--
+ * カードの作り方 *
+
+  1. ブラウザから出力し(用紙サイズはA4)、ハサミで切る。
+  2. MTGのカード(幅63mm, 高さ89mm)用スリーブに入れる。
+     不要カードを補強のため一緒に入れるとなお良し。
+
+ * このファイルのライセンス *
+
+  Creative Commons 表示-非営利 2.1 日本
+  http://creativecommons.org/licenses/by-nc/2.1/jp/
+-->
+  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript">
+bosses = [
+  {"name":"シドー", "img":"2fc_82.png", "hp":"200", "lv":"∞", "skill":"はげしいほのお"},
+];
+monsters = [
+  {"name":"あくましんかん", "img":"2fc_77.png", "hp":"50", "lv":"3", "skill":"イオナズン"},
+  {"name":"バーサーカー", "img":"2fc_66.png", "hp":"50", "lv":"3", "description":"攻撃値が4の倍数だったとき、ダメージ+5"},
+];
+commands = [
+  {"name":"みんながんばれ", "img":"cmd_m.png", "description":"攻撃値計算時、使用された部分が真っ先に計算される。"},
+];
+operations = [
+  {"img":"plus.png"},
+];
+attacks = [
+  {"num":10, "img":"one.png"},
+];
+promotions = [
+  {"name":"dqzルール", "img":"qr_rule.png", "description":"※上記QRコードを読み取ると『ルール』が表示されます。<br/>https://github.com/fullkawa/dqz/blob/master/rule.md"},
+];
+
+cards = [];
+cards.push(bosses);
+cards.push(monsters);
+cards.push(commands);
+cards.push(operations);
+cards.push(attacks);
+cards.push(promotions);
+
+$(function() {
+  var n = 0;
+  $(cards).each(function() {
+    if (this['num'] == undefined) {
+      this['num'] = 1;
+    }
+    for (i = 0; i < this['num']; i++) {
+      n++;
+      var card = $('<div class="card"></div>');
+
+      if (n % 3 == 1) {
+        card.addClass('break');
+      }
+
+      // TODO
+
+      card.appendTo('body');
+    }
+  });
+});
+  </script>
+  <style type="text/css">
+.card {
+  width: 48mm; /* 63mm - padding * 2 - ? */
+  height: 72mm; /* 89mm - padding * 2 - ? */
+  border: solid 1px black;
+  padding: 5mm;
+  float: left;
+  position: relative;
+  font-size: 1em;
+}
+.card .head_line {
+  padding-left: 30px;
+}
+.card .level {
+  float: left;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  border: solid 1px black;
+  border-radius: 5px;
+  padding: 3px 12px;
+  font-size: 2em;
+}
+}
+.card .hp {
+  float: right;
+  position: relative;
+  top: -3mm;
+  right: -3mm;
+}
+.card .name {
+  float: left;
+  font-size: 1.5em;
+}
+.card .illustration {
+  position: relative;
+  left: -5mm;
+  width: 56mm;
+  height: 56mm;
+}
+.card .description {
+  position: absolute;
+  top: 44mm;
+  left: 0mm;
+  height: 6em;
+  margin: 5mm;
+  padding: 3mm;
+  border: solid 1px black;
+  font-size: 0.8em;
+  color: black;
+  background-color: white;
+  opacity: 0.5;
+}
+.break {
+  clear: both;
+}
+.pgbreak {
+  clear: both;
+  page-break-after: always;
+  border: 0px;
+  margin: 10mm;
+}
+  </style>
 </head>
 <body>
-
 </body>
 </html>
