@@ -18,36 +18,59 @@
   <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
   <script type="text/javascript">
 bosses = [
-  {"name":"シドー", "img":"2fc_82.png", "hp":"200", "lv":"∞", "skill":"はげしいほのお"},
+  {"name":"シドー", "img":"2fc_82.png", "img_top":0, "hp":"200", "lv":"∞", "skill":"はげしいほのお"},
 ];
 monsters = [
-  {"name":"あくましんかん", "img":"2fc_77.png", "hp":"50", "lv":"3", "skill":"イオナズン"},
-  {"name":"バーサーカー", "img":"2fc_66.png", "hp":"50", "lv":"3", "description":"攻撃値が4の倍数だったとき、ダメージ+5"},
+  {"name":"あくましんかん", "img":"2fc_77.png", "hp":"50", "lv":"☆☆☆", "skill":"イオナズン"},
+  {"name":"バーサーカー", "img":"2fc_66.png", "hp":"50", "lv":"☆☆☆", "description":"攻撃値が4の倍数だったとき、ダメージ+5"},
 ];
 commands = [
-  {"name":"みんながんばれ", "img":"cmd_m.png", "description":"攻撃値計算時、使用された部分が真っ先に計算される。"},
+  {"name":"みんながんばれ", "img":"cmd_m.png", "description":'攻撃値計算時、使用された部分が真っ先に計算される。'},
+  {"name":"ガンガンいこうぜ", "img":"cmd_g.png", "description":'攻撃値計算時、使用された"こうげきカード"の値を2倍してから計算する。'},
+  {"name":"いのちだいじに", "img":"cmd_i.png", "description":'このバトル終了後、使用した"こうげきカード"はそれぞれのプレイヤーの手札に戻る。'},
+  {"name":"じゅもんせつやく", "img":"cmd_j.png", "description":'この"さくせんカード"は "＋"の"えんざんカード"と同等に扱われる。'},
+  {"name":"おれにまかせろ", "img":"cmd_o.png", "description":'攻撃値計算時、自分が出した"こうげきカード"の値を＋３してから計算する。'},
 ];
 operations = [
-  {"img":"plus.png"},
+  {"name":"えんざん", "img":"add.png"}, {"name":"えんざん", "img":"sub.png"}, {"name":"えんざん", "img":"mul.png"}, {"name":"えんざん", "img":"div.png"},
 ];
 attacks = [
-  {"num":10, "img":"one.png"},
+  {"num":10, "name":"こうげき", "img":"one.png"}, {"num":10, "name":"こうげき", "img":"two.png"}, {"num":10, "name":"こうげき", "img":"three.png"}, {"num":10, "name":"こうげき", "img":"four.png"}, {"num":10, "name":"こうげき", "img":"five.png"},
 ];
 promotions = [
-  {"name":"dqzルール", "img":"qr_rule.png", "description":"※上記QRコードを読み取ると『ルール』が表示されます。<br/>https://github.com/fullkawa/dqz/blob/master/rule.md"},
+  {"num":4, "name":"dqzルール", "img":"qr_rule.gif", "description":"※上記QRコードを読み取ると『ルール』が表示されます。"},
 ];
+skills = {
+  'イオナズン':'[攻撃終了後]ゲームマスターが2D6を振って出した目と同じ"こうげきカード"を全員1枚ずつ捨てる(持っていないプレイヤーは任意のこうげきカード2枚)。',
+}
 
-cards = [];
-cards.push(bosses);
-cards.push(monsters);
-cards.push(commands);
-cards.push(operations);
-cards.push(attacks);
-cards.push(promotions);
+Cards = function() {
+  var self = this;
+  var _cards = [];
+  this.add = function(cards) {
+    if (!$.isArray(cards)) {
+      throw new Exception('cards must be array.');
+    }
+    for (var i=0; i<cards.length; i++) {
+      _cards.push(cards[i]);
+    }
+  };
+  this.each = function(func) {
+    $(_cards).each(func);
+  };
+}
 
 $(function() {
+  var cards = new Cards();
+  cards.add(bosses);
+  cards.add(monsters);
+  cards.add(commands);
+  cards.add(operations);
+  cards.add(attacks);
+  cards.add(promotions);
+
   var n = 0;
-  $(cards).each(function() {
+  cards.each(function() {
     if (this['num'] == undefined) {
       this['num'] = 1;
     }
@@ -59,7 +82,37 @@ $(function() {
         card.addClass('break');
       }
 
-      // TODO
+      if (this['name'] != undefined) {
+        var name = $('<div class="name">' + this['name'] + '</div>');
+        name.appendTo(card);
+      }
+      if (this['lv'] != undefined) {
+        var lv = $('<div class="level">' + this['lv'] + '</div>');
+        lv.appendTo(card);
+      }
+      if (this['hp'] != undefined) {
+        var hp = $('<div class="hp">HP: ' + this['hp'] + '</div>');
+        hp.appendTo(card);
+      }
+
+      if (this['img'] != undefined) {
+        var image = $('<div class="illustration"><img src="' + this['img'] + '"></div>');
+        image.appendTo(card);
+      }
+
+      var description = this['description'];
+      if (this['skill'] != undefined) {
+        var skill = $('<div class="skill">[' + this['skill'] + ']</div>');
+        skill.appendTo(card);
+
+        if (description == undefined) {
+          description = skills[this['skill']];
+        }
+      }
+      if (description != undefined) {
+        description = $('<div class="description">' + description + '</div>');
+        description.appendTo(card);
+      }
 
       card.appendTo('body');
     }
@@ -77,42 +130,58 @@ $(function() {
   font-size: 1em;
 }
 .card .head_line {
-  padding-left: 30px;
+  margin-top: 3px;
+  padding-left: 50px;
 }
 .card .level {
   float: left;
+  font-weight: bold;
+  /*
+  float: left;
   position: absolute;
-  top: 3px;
+  top: 1.5em;
   left: 3px;
   border: solid 1px black;
   border-radius: 5px;
   padding: 3px 12px;
   font-size: 2em;
-}
+  */
 }
 .card .hp {
   float: right;
-  position: relative;
-  top: -3mm;
-  right: -3mm;
+  text-align: right;
+  font-weight: bold;
+  color: red;
 }
 .card .name {
-  float: left;
   font-size: 1.5em;
+  text-align: center;
 }
 .card .illustration {
-  position: relative;
-  left: -5mm;
-  width: 56mm;
-  height: 56mm;
+  position: absolute;
+  top: 20mm;
+  text-align: center;
+  width: 48mm;
+  height: 48mm;
+}
+.card .skill {
+  position: absolute;
+  top: 50mm;
+  left: 5mm;
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  opacity: 0.95;
 }
 .card .description {
   position: absolute;
-  top: 44mm;
+  top: 50mm;
   left: 0mm;
   height: 6em;
+  width: 44mm;
   margin: 5mm;
-  padding: 3mm;
+  padding: 2mm;
   border: solid 1px black;
   font-size: 0.8em;
   color: black;
