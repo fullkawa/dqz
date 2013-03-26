@@ -18,31 +18,92 @@
   <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
   <script type="text/javascript">
 bosses = [
-  {"name":"シドー", "img":"2fc_82.png", "img_top":0, "hp":"200", "lv":"∞", "skill":"はげしいほのお"},
+{'name':'シドー','img':'img/2fc_82.png','hp':'200','lv':'∞','skill':'はげしいほのお'},
+{'name':'ハーゴン','img':'img/2fc_81.png','hp':'150','lv':'☆☆☆☆☆','skill':'イオナズン'},
+{'name':'ベリアル','img':'img/2fc_80.png','hp':'100','lv':'☆☆☆☆','skill':'呪文耐性：高'},
+{'name':'バズズ','img':'img/2fc_79.png','hp':'100','lv':'☆☆☆☆','skill':'ザラキ'},
+{'name':'アトラス','img':'img/2fc_78.png','hp':'100','lv':'☆☆☆☆','skill':'集中攻撃'},
 ];
 monsters = [
-  {"name":"あくましんかん", "img":"2fc_77.png", "hp":"50", "lv":"☆☆☆", "skill":"イオナズン"},
-  {"name":"バーサーカー", "img":"2fc_66.png", "hp":"50", "lv":"☆☆☆", "description":"攻撃値が4の倍数だったとき、ダメージ+5"},
+{'name':'あくましんかん','img':'img/2fc_77.png','hp':'50','lv':'☆☆☆','skill':'イオナズン'},
+{'name':'アークデーモン','img':'img/2fc_76.png','hp':'60','lv':'☆☆☆','skill':'呪文耐性：高'},
+{'name':'ブリザード','img':'img/2fc_73.png','hp':'30','lv':'☆☆☆','skill':'物理攻撃無効'},
+{'name':'サイクロプス','img':'img/2fc_72.png','hp':'60','lv':'☆☆☆'},
+{'name':'ドラゴン','img':'img/2fc_69.png','hp':'60','lv':'☆☆☆','skill':'かえんのいき'},
+{'name':'キラーマシン','img':'img/2fc_68.png','hp':'40','lv':'☆☆☆','skill':'つうこんのいちげき'},
+{'name':'バーサーカー','img':'img/2fc_66.png','hp':'50','lv':'☆☆☆','description':'攻撃値が4の倍数だったとき、ダメージ+5'},
+{'name':'スカルナイト','img':'img/2fc_59.png','hp':'50','lv':'☆☆☆'},
+{'name':'あくまのめだま','img':'img/2fc_56.png','hp':'40','lv':'☆☆☆','skill':'あまいいき'},
+{'name':'はぐれメタル','img':'img/2fc_54.png','hp':'1','lv':'☆☆☆☆','description':'攻撃値が1以外のとき、このモンスターは逃げる'},
+{'name':'ようじゅつし','img':'img/2fc_49.png','hp':'25','lv':'☆☆','skill':'ベギラマ'},
+{'name':'バピラス','img':'img/2fc_46.png','hp':'30','lv':'☆☆'},
+{'name':'くさったしたい','img':'img/2fc_45.png','hp':'40','lv':'☆☆☆','skill':'どくこうげき'},
+{'name':'マドハンド','img':'img/2fc_44.png','hp':'25','lv':'☆☆','skill':'なかまをよぶ'},
+{'name':'マドハンド','img':'img/2fc_44.png','hp':'25','lv':'☆☆','skill':'なかまをよぶ'},
+{'name':'じんめんじゅ','img':'img/2fc_43.png','hp':'20','lv':'☆☆','skill':'ふしぎなおどり'},
+{'name':'ドラゴンフライ','img':'img/2fc_40.png','hp':'20','lv':'☆☆','skill':'ひのいき'},
+{'name':'オーク','img':'img/2fc_37.png','hp':'30','lv':'☆☆','description':'攻撃値が3の倍数だったとき、ダメージ+5'},
+{'name':'サーベルウルフ','img':'img/2fc_36.png','hp':'15','lv':'☆☆','skill':'つうこんのいちげき'},
+{'name':'グレムリン','img':'img/2fc_34.png','hp':'20','lv':'☆☆','skill':'ホイミ'},
+{'name':'ホークマン','img':'img/2fc_32.png','hp':'15','lv':'☆☆','skill':'マホトーン'},
+{'name':'しびれくらげ','img':'img/2fc_30.png','hp':'15','lv':'☆☆','skill':'まひこうげき'},
+{'name':'どろにんぎょう','img':'img/2fc_28.png','hp':'15','lv':'☆☆','skill':'ふしぎなおどり'},
+{'name':'メドーサボール','img':'img/2fc_25.png','hp':'15','lv':'☆☆','skill':'ラリホー'},
+{'name':'ミイラおとこ','img':'img/2fc_24.png','hp':'20','lv':'☆☆','description':'攻撃値が3の倍数だったとき、ダメージ+5'},
+{'name':'マンイーター','img':'img/2fc_23.png','hp':'15','lv':'☆☆'},
+{'name':'メタルスライム','img':'img/2fc_20.png','hp':'10','lv':'☆☆','description':'えんざん記号はすべて"－"として計算される'},
+{'name':'マンドリル','img':'img/2fc_19.png','hp':'20','lv':'☆☆'},
+{'name':'スモーク','img':'img/2fc_18.png','hp':'10','lv':'☆☆','skill':'物理攻撃無効'},
+{'name':'よろいムカデ','img':'img/2fc_14.png','hp':'10','lv':'☆☆','description':'えんざん記号はすべて"＋"として計算される'},
+{'name':'おおねずみ','img':'img/2fc_12.png','hp':'10','lv':'☆☆'},
+{'name':'ぐんたいアリ','img':'img/2fc_11.png','hp':'10','lv':'☆☆','skill':'なかまをよぶ'},
+{'name':'キングコブラ','img':'img/2fc_10.png','hp':'10','lv':'☆☆','skill':'どくこうげき'},
+{'name':'まじゅつし','img':'img/2fc_09.png','hp':'5','lv':'☆','skill':'ギラ'},
+{'name':'バブルスライム','img':'img/2fc_08.png','hp':'5','lv':'☆','skill':'どくこうげき'},
+{'name':'ホイミスライム','img':'img/2fc_07.png','hp':'5','lv':'☆','skill':'ホイミ'},
+{'name':'ゆうれい','img':'img/2fc_06.png','hp':'10','lv':'☆☆'},
+{'name':'ドラキー','img':'img/2fc_04.png','hp':'5','lv':'☆☆','description':'攻撃値が5の倍数だったとき、攻撃を回避する'},
+{'name':'おおなめくじ','img':'img/2fc_02.png','hp':'5','lv':'☆'},
+{'name':'スライム','img':'img/2fc_01.png','hp':'5','lv':'☆'},
 ];
 commands = [
-  {"name":"みんながんばれ", "img":"cmd_m.png", "description":'攻撃値計算時、使用された部分が真っ先に計算される。'},
-  {"name":"ガンガンいこうぜ", "img":"cmd_g.png", "description":'攻撃値計算時、使用された"こうげきカード"の値を2倍してから計算する。'},
-  {"name":"いのちだいじに", "img":"cmd_i.png", "description":'このバトル終了後、使用した"こうげきカード"はそれぞれのプレイヤーの手札に戻る。'},
-  {"name":"じゅもんせつやく", "img":"cmd_j.png", "description":'この"さくせんカード"は "＋"の"えんざんカード"と同等に扱われる。'},
-  {"name":"おれにまかせろ", "img":"cmd_o.png", "description":'攻撃値計算時、自分が出した"こうげきカード"の値を＋３してから計算する。'},
+  {"name":"みんながんばれ", "img":"img/cmd_m.png", "description":'攻撃値計算時、使用された部分が真っ先に計算される。'},
+  {"name":"ガンガンいこうぜ", "img":"img/cmd_g.png", "description":'攻撃値計算時、使用された"こうげきカード"の値を2倍してから計算する。'},
+  {"name":"いのちだいじに", "img":"img/cmd_i.png", "description":'このバトル終了後、使用した"こうげきカード"はそれぞれのプレイヤーの手札に戻る。'},
+  {"name":"じゅもんせつやく", "img":"img/cmd_j.png", "description":'この"さくせんカード"は "＋"の"えんざんカード"と同等に扱われる。'},
+  {"name":"おれにまかせろ", "img":"img/cmd_o.png", "description":'攻撃値計算時、自分が出した"こうげきカード"の値を＋３してから計算する。'},
 ];
 operations = [
-  {"name":"えんざん", "img":"add.png"}, {"name":"えんざん", "img":"sub.png"}, {"name":"えんざん", "img":"mul.png"}, {"name":"えんざん", "img":"div.png"},
+  {"name":"えんざん", "img":"img/add.png"}, {"name":"えんざん", "img":"img/sub.png"}, {"name":"えんざん", "img":"img/mul.png"}, {"name":"えんざん", "img":"img/div.png"},
 ];
 attacks = [
-  {"num":10, "name":"こうげき", "img":"one.png"}, {"num":10, "name":"こうげき", "img":"two.png"}, {"num":10, "name":"こうげき", "img":"three.png"}, {"num":10, "name":"こうげき", "img":"four.png"}, {"num":10, "name":"こうげき", "img":"five.png"},
+  {"num":10, "name":"こうげき", "lv":"1", "img":"img/one.png"}, {"num":10, "name":"こうげき", "lv":"2", "img":"img/two.png"}, {"num":10, "name":"こうげき", "lv":"3", "img":"img/three.png"}, {"num":10, "name":"こうげき", "lv":"4", "img":"img/four.png"}, {"num":10, "name":"こうげき", "lv":"5", "img":"img/five.png"},
 ];
 promotions = [
   {"num":4, "name":"dqzルール", "img":"qr_rule.gif", "description":"※上記QRコードを読み取ると『ルール』が表示されます。"},
 ];
 skills = {
+  'はげしいほのお':'[攻撃終了後]攻撃値が5の倍数だったとき、全員任意の"こうげきカード"を1枚ずつ捨てる。',
+  'かえんのいき':'[攻撃終了後]攻撃値が3の倍数だったとき、全員任意の"こうげきカード"を1枚ずつ捨てる。',
+  'ひのいき':'[攻撃終了後]攻撃値が4の倍数だったとき、全員任意の"こうげきカード"を1枚ずつ捨てる。',
   'イオナズン':'[攻撃終了後]ゲームマスターが2D6を振って出した目と同じ"こうげきカード"を全員1枚ずつ捨てる(持っていないプレイヤーは任意のこうげきカード2枚)。',
-}
+  'ベギラマ':'[攻撃終了後]ゲームマスターが1D6を振って1を出したとき、全員任意の"こうげきカード"を1枚ずつ捨てる。',
+  'ギラ':'[攻撃終了後]ゲームマスターが1D6を振って1を出したとき、"ゆうしゃ"のプレイヤーは任意の"こうげきカード"を1枚捨てる。',
+  'どくこうげき':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"こうげきカード"は、次のターン(カードの数値－1)で計算される。',
+  'まひこうげき':'[攻撃終了後]ゲームマスターが1D6を振って出した目の順番のプレイヤーが次のターンに出す"こうげきカード"は、カードの数値に関わらず0として計算される。',
+  'ラリホー':'[攻撃終了後]ゲームマスターが1D6を振って出した目の順番のプレイヤーが次のターンに出す"こうげきカード"は、カードの数値に関わらず1として計算される。',
+  'あまいいき':'[攻撃終了後]ゲームマスターが1D6を振って出した目の順番のプレイヤーが次のターンに出す"こうげきカード"は、カードの数値に関わらず1として計算される。',
+  '物理攻撃無効':'[攻撃時]攻撃値×(-1)がダメージとなる。',
+  '集中攻撃':'[攻撃終了後]手札の数が一番少ないプレイヤーは任意の"こうげきカード"を1枚捨てる。枚数が同じプレイヤーがいるときは勇者に最も近いプレイヤーを対象とする。',
+  'つうこんのいちげき':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"こうげきカード"を出したプレイヤーは、もう1枚任意の"こうげきカード"を捨てる。',
+  '呪文耐性：高':'[攻撃時]さくせんを使用したとき、ダメージが1/2(端数切り上げ)となる。',
+  'ふしぎなおどり':'[攻撃終了後]ゲームマスターが1D6を振って出した目の順番に置かれているさくせんは山札に戻す。',
+  'マホトーン':'[攻撃終了後]次のターン、さくせんは使えない。',
+  'ザラキ':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"こうげきカード"は、次のターン使えない。',
+  'ベホイミ':'[攻撃終了後]ゲームマスターが2D6を振って出した目の数、HPが回復する。',
+  'ホイミ':'[攻撃終了後]ゲームマスターが1D6を振って出した目の数、HPが回復する。',
+  'なかまをよぶ':'[攻撃終了後]次のモンスターと連続でバトルを行う(宿屋を利用できない)。',
+};
 
 Cards = function() {
   var self = this;
@@ -80,6 +141,9 @@ $(function() {
 
       if (n % 3 == 1) {
         card.addClass('break');
+      }
+      if (n % 9 == 1 && n != 1) {
+        $('<hr class="pgbreak" />').appendTo('body');
       }
 
       if (this['name'] != undefined) {
@@ -136,16 +200,6 @@ $(function() {
 .card .level {
   float: left;
   font-weight: bold;
-  /*
-  float: left;
-  position: absolute;
-  top: 1.5em;
-  left: 3px;
-  border: solid 1px black;
-  border-radius: 5px;
-  padding: 3px 12px;
-  font-size: 2em;
-  */
 }
 .card .hp {
   float: right;
@@ -159,7 +213,7 @@ $(function() {
 }
 .card .illustration {
   position: absolute;
-  top: 20mm;
+  top: 18mm;
   text-align: center;
   width: 48mm;
   height: 48mm;
@@ -172,7 +226,7 @@ $(function() {
   font-weight: bold;
   color: black;
   background-color: white;
-  opacity: 0.95;
+  opacity: 0.9;
 }
 .card .description {
   position: absolute;
@@ -186,7 +240,7 @@ $(function() {
   font-size: 0.8em;
   color: black;
   background-color: white;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .break {
   clear: both;
