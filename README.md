@@ -42,3 +42,12 @@ dqzは [Creative Commons 表示 - 非営利 2.1 日本 License](http://creativec
 よって、あなたはこのリポジトリをForkし、ゲームのルール・カードデザイン等を自由に修正することができます！  
 dqzは"open-design-game"でもあるのです。  
 → ["open-design-game"とは？](http://open-design-games.net/index.php/about)  
+
+資料
+----
+
+レベルデザイン時に作成したファイルなど  
+https://github.com/fullkawa/dqz/blob/master/design/level_design.md
+
+テストプレイについて  
+https://github.com/fullkawa/dqz/blob/master/test/test_play.md
