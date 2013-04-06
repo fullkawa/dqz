@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+var player_nums = [3]; //[5, 4, 3];
+var attack_nums = [5, 4, 3, 2, 1];
+var operators = ['+', '/', '*']; //['+', '-', '*', '/'];
+
+Action = function(action) {
+  var _self = this;
+  var _action = [];
+  if (action != undefined && $.isArray(action)) {
+    _action = action;
+  }
+
+  this.addNext = function(next) {
+    _action.push(next);
+  };
+
+  this.getExpression = function() {
+    return _action.join('');
+  };
+
+  this.duplicate = function() {
+    var duplicated = [];
+    for (var i=0; i<_action.length; i++) {
+      duplicated.push(_action[i]);
+    }
+    return new Action(duplicated);
+  };
+
+  this.isValid = function() {
+    var counter = {'+':0, '-':0, '*':0, '/':0};
+    for (var i=0; i<_action.length; i++) {
+      if (counter[_action[i]] != undefined) {
+        if (counter[_action[i]] == 0) {
+          counter[_action[i]] = 1;
+        }
+        else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+};
+
+Actions = function() {
+  var _self = this;
+  var _actions = [new Action()];
+
+  this.addNexts = function(nexts) {
+    var replaced = [];
+    for (var i=0; i<_actions.length; i++) {
+      for (var j=0; j<nexts.length; j++) {
+        var duplicated = _actions[i].duplicate();
+        duplicated.addNext(nexts[j]);
+        replaced.push(duplicated);
+      }
+    }
+    _actions = replaced;
+  };
+
+  this.get = function() {
+    return _actions;
+  };
+}
+
+Statics = function(actions) {
+  var _actions = actions.get();
+  var _purified = [];
+  var _stats = {};
+  //for (var i=0; i<100; i++) {
+  for (var i=0; i<_actions.length; i++) {
+    if (_actions[i].isValid()) {
+      _purified.push(_actions[i]);
+    }
+  }
+
+  _stats.attack_distribution = {};
+  for (var i=0; i<_purified.length; i++) {
+    var value = Math.floor(eval(_purified[i].getExpression(i)));
+    console.log(padding(i, 4) + ': ' + _purified[i].getExpression(i) + '=' + value);
+    if (_stats.attack_distribution[value] == undefined) {
+      _stats.attack_distribution[value] = 1;
+    }
+    else {
+      _stats.attack_distribution[value] += 1;
+    }
+  }
+  console.log(_stats);
+
+  this.showTo = function($result) {
+    var $result_table = $('<table cellpadding="3"></table>');
+    for (var i in _stats.attack_distribution) {
+      var freq = '';
+      for (var j=0; j<_stats.attack_distribution[i]; j++) {
+        freq += '#';
+      }
+      $('<tr><td>' + i + '</td><td>' + freq + '</td></tr>').appendTo($result_table);
+      //$('<tr><td>' + i + '</td><td>' + _stats.attack_distribution[i] + '</td></tr>').appendTo($result_table);
+    }
+    $result_table.appendTo($result);
+  };
+}
+
+$(function() {
+  var $result = $('#attack_result');
+  for (var i in player_nums) {
+    var player_num = player_nums[i];
+    $result.append('<h3># ' + player_num + ' players</h3>');
+  }
+
+  console.log('Start: ' + (new Date()));
+  var actions = new Actions();
+  actions.addNexts(attack_nums);
+  for (var i=0; i<(player_nums[0] - 1); i++) {
+    actions.addNexts(operators);
+    actions.addNexts(attack_nums);
+  }
+  var statics = new Statics(actions);
+  statics.showTo($result);
+  console.log('End: ' + (new Date()));
+  actions = null; // clear
+});
+
+function padding(num, digit) {
+  var output = '' + num;
+  var space_num = digit - output.length;
+  for (var i=0; i<space_num; i++) {
+    output = ' ' + output;
+  }
+  return output;
+}
+
+</script>
+</head>
+<body>
+<h1>検証: dqz</h1>
+<h2>攻撃値</h2>
+<div id="attack_result"></div>
+</body>
+</html>
