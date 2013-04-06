@@ -10,10 +10,15 @@
 
 * プリンタ + A4用紙
 * カードスリーブ(MTGサイズ=幅63mm, 高さ89mm)
- - 100円ショップに売っているもの(下写真)とかで十分です！
+ - 100円ショップに売っているもの(左下写真)とかで十分です！
 * 不要なTCGカード
 
-![カードスリーブ](http://open-design-games.net/wp-content/uploads/2013/04/F-59-96.jpg)
+![カードスリーブ](http://open-design-games.net/wp-content/uploads/2013/04/F-59-96.jpg)　
+![カード製作中](http://open-design-games.net/wp-content/uploads/2013/04/making_card.jpg)
+
+### 完成＆製作イメージ
+
+※右上写真参照
 
 
 手順
