@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+ * このファイルのライセンス *
+
+  Creative Commons 表示 2.1 日本 License
+  http://creativecommons.org/licenses/by/2.1/jp/
+-->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,28 +15,33 @@
   1. ブラウザから出力し(用紙サイズはA4)、ハサミで切る。
   2. MTGのカード(幅63mm, 高さ89mm)用スリーブに入れる。
      不要カードを補強のため一緒に入れるとなお良し。
-
- * このファイルのライセンス *
-
-  Creative Commons 表示 2.1 日本 License
-  http://creativecommons.org/licenses/by/2.1/jp/
 -->
   <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
   <script type="text/javascript">
+/*
+ * カードデータ
+ *
+ * 特別な意味を持つパラメータ
+ * - num: カードの枚数
+ * - img: 画像
+ *
+ * 上記以外のパラメータはすべて出現順に、パラメータ名と同じクラス名のテキストとして
+ * 追加されます。
+ */
 monsters = [
-{'name':'ラスボス','hp':'70','lv':'☆☆☆☆☆','skill':'カウンター'},
-{'name':'中ボス','hp':'50 [C:30]','lv':'☆☆☆☆','initiative':'【先制】','skill':'反撃2'},
-{'name':'モンスター1','hp':'40','lv':'☆☆☆','initiative':'[攻撃終了後]','skill':'攻撃封じ'},
-{'name':'モンスター2','hp':'40 [C:26]','lv':'☆☆☆','initiative':'【先制】','skill':'攻撃封じ'},
+{'name':'ラスボス','hp':'70','lv':'☆☆☆☆☆','skill':'カウンター','description':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"攻撃カード"を出したプレイヤーは、もう1枚任意の"攻撃カード"を捨てる。'},
+{'name':'中ボス','hp':'50 [C:30]','lv':'☆☆☆☆','skill':'反撃2','description':'【先制】ゲームマスターが2D6を振って出した目と同じ"攻撃カード"を全員1枚ずつ捨てる(持っていないプレイヤーは任意のこうげきカード2枚)。'},
+{'name':'モンスター1','hp':'40','lv':'☆☆☆','skill':'攻撃封じ','description':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、次の攻撃で使えない。'},
+{'name':'モンスター2','hp':'40 [C:26]','lv':'☆☆☆','skill':'攻撃封じ','description':'【先制】ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、次の攻撃で使えない。'},
 {'name':'モンスター3','hp':'40','lv':'☆☆'},
-{'name':'モンスター4','hp':'30 [C:23]','lv':'☆☆','initiative':'【先制】','skill':'反撃1'},
-{'name':'モンスター5','hp':'30','lv':'☆☆','initiative':'[攻撃終了後]','skill':'反撃1'},
+{'name':'モンスター4','hp':'30 [C:23]','lv':'☆☆','skill':'反撃1','description':'【先制】ゲームマスターが1D6を振って1を出したとき、全員任意の"攻撃カード"を1枚ずつ捨てる。'},
+{'name':'モンスター5','hp':'30','lv':'☆☆','skill':'反撃1','description':'[攻撃終了後]ゲームマスターが1D6を振って1を出したとき、全員任意の"攻撃カード"を1枚ずつ捨てる。'},
 {'name':'モンスター6','hp':'32 [C:19,29]','lv':'☆'},
 {'name':'モンスター7','hp':'30','lv':'☆'},
 {'name':'モンスター8','hp':'30 [C:13]','lv':'☆'},
-{'name':'モンスター9','hp':'30','lv':'☆','initiative':'[攻撃終了後]','skill':'援軍'},
-{'name':'モンスター10','hp':'28 [C:7]','lv':'☆','initiative':'【先制】','skill':'防御力アップ'},
-{'name':'モンスター11','hp':'24 [C:12]','lv':'☆','skill':'通常攻撃無効'},
+{'name':'モンスター9','hp':'30','lv':'☆','skill':'援軍','description':'[攻撃終了後]次のモンスターと連続でバトルを行う(キャンプを利用できない)。'},
+{'name':'モンスター10','hp':'28 [C:7]','lv':'☆','skill':'防御力アップ','description':'【先制】ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、カードの数値に関わらず1として計算される。'},
+{'name':'モンスター11','hp':'24 [C:12]','lv':'☆','skill':'通常攻撃無効','description':'[攻撃時]攻撃値×(-1)がダメージとなる。'},
 {'name':'モンスター12','hp':'24 [C:12]','lv':'☆'},
 ];
 operations = [
@@ -43,15 +54,6 @@ promotions = [
   {"num":1, "name":"ndqz遊び方", "img":"qr_play.gif", "description":"※上記QRコードを読み取ると『遊び方』が表示されます。"},
   {"num":3, "name":"ndqzルール", "img":"qr_rule.gif", "description":"※上記QRコードを読み取ると『ルール』が表示されます。"},
 ];
-skills = {
-  '反撃2':'ゲームマスターが2D6を振って出した目と同じ"攻撃カード"を全員1枚ずつ捨てる(持っていないプレイヤーは任意のこうげきカード2枚)。',
-  '反撃1':'ゲームマスターが1D6を振って1を出したとき、全員任意の"攻撃カード"を1枚ずつ捨てる。',
-  '防御力アップ':'ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、カードの数値に関わらず1として計算される。',
-  '通常攻撃無効':'[攻撃時]攻撃値×(-1)がダメージとなる。',
-  'カウンター':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"攻撃カード"を出したプレイヤーは、もう1枚任意の"攻撃カード"を捨てる。',
-  '攻撃封じ':'ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、次の攻撃で使えない。',
-  '援軍':'次のモンスターと連続でバトルを行う(キャンプを利用できない)。',
-};
 
 Cards = function() {
   var self = this;
@@ -85,45 +87,31 @@ $(function() {
       n++;
       var card = $('<div class="card"></div>');
 
+      // 改行
       if (n % 3 == 1) {
         card.addClass('break');
       }
+      // 改ページ
       if (n % 9 == 1 && n != 1) {
         $('<hr class="pgbreak" />').appendTo('body');
       }
 
-      if (this['name'] != undefined) {
-        var name = $('<div class="name">' + this['name'] + '</div>');
-        name.appendTo(card);
-      }
-      if (this['lv'] != undefined) {
-        var lv = $('<div class="level">' + this['lv'] + '</div>');
-        lv.appendTo(card);
-      }
-      if (this['hp'] != undefined) {
-        var hp = $('<div class="hp">HP: ' + this['hp'] + '</div>');
-        hp.appendTo(card);
-      }
+      for (key in this) {
+        switch (key) {
+        case 'num':
+          // no operation
+          break;
 
-      if (this['img'] != undefined) {
-        var image = $('<div class="illustration"><img src="' + this['img'] + '"></div>');
-        image.appendTo(card);
-      }
+        case 'img':
+          var image = $('<div class="illustration"><img src="' + this['img'] + '"></div>');
+          image.appendTo(card);
+          break;
 
-      var description = this['description'];
-      if (this['skill'] != undefined) {
-        var skill = $('<div class="skill">[' + this['skill'] + ']</div>');
-        skill.appendTo(card);
-
-        if (description == undefined) {
-          description = skills[this['skill']];
+        default:
+          var elm = $('<div class="' + key + '">' + this[key] + '</div>');
+          elm.appendTo(card);
         }
       }
-      if (description != undefined) {
-        description = $('<div class="description">' + (this['initiative'] ? this['initiative'] : '') + description + '</div>');
-        description.appendTo(card);
-      }
-
       card.appendTo('body');
     }
   });
