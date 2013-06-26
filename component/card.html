@@ -29,30 +29,27 @@
  * 追加されます。
  */
 monsters = [
-{'name':'ラスボス','hp':'70','lv':'☆☆☆☆☆','skill':'カウンター','description':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"攻撃カード"を出したプレイヤーは、もう1枚任意の"攻撃カード"を捨てる。'},
-{'name':'中ボス','hp':'50 [C:30]','lv':'☆☆☆☆','skill':'反撃2','description':'【先制】ゲームマスターが2D6を振って出した目と同じ"攻撃カード"を全員1枚ずつ捨てる(持っていないプレイヤーは任意のこうげきカード2枚)。'},
-{'name':'モンスター1','hp':'40','lv':'☆☆☆','skill':'攻撃封じ','description':'[攻撃終了後]ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、次の攻撃で使えない。'},
-{'name':'モンスター2','hp':'40 [C:26]','lv':'☆☆☆','skill':'攻撃封じ','description':'【先制】ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、次の攻撃で使えない。'},
-{'name':'モンスター3','hp':'40','lv':'☆☆'},
-{'name':'モンスター4','hp':'30 [C:23]','lv':'☆☆','skill':'反撃1','description':'【先制】ゲームマスターが1D6を振って1を出したとき、全員任意の"攻撃カード"を1枚ずつ捨てる。'},
-{'name':'モンスター5','hp':'30','lv':'☆☆','skill':'反撃1','description':'[攻撃終了後]ゲームマスターが1D6を振って1を出したとき、全員任意の"攻撃カード"を1枚ずつ捨てる。'},
-{'name':'モンスター6','hp':'32 [C:19,29]','lv':'☆'},
-{'name':'モンスター7','hp':'30','lv':'☆'},
-{'name':'モンスター8','hp':'30 [C:13]','lv':'☆'},
-{'name':'モンスター9','hp':'30','lv':'☆','skill':'援軍','description':'[攻撃終了後]次のモンスターと連続でバトルを行う(キャンプを利用できない)。'},
-{'name':'モンスター10','hp':'28 [C:7]','lv':'☆','skill':'防御力アップ','description':'【先制】ゲームマスターが1D6を振って出した目と同じ"攻撃カード"は、カードの数値に関わらず1として計算される。'},
-{'name':'モンスター11','hp':'24 [C:12]','lv':'☆','skill':'通常攻撃無効','description':'[攻撃時]攻撃値×(-1)がダメージとなる。'},
-{'name':'モンスター12','hp':'24 [C:12]','lv':'☆'},
+{'name':'モンスター1','hp':'HP:30','level':'☆','description':'ダメージ配置：5列×1行<br/><br/>【急所】5の倍数'},
+{'name':'モンスター2','hp':'HP:30','level':'☆','description':'ダメージ配置：5列×1行<br/><br/>【急所】奇数'},
+{'name':'モンスター3','hp':'HP:30','level':'☆','description':'ダメージ配置：4列×2行<br/><br/>【急所】7,14'},
+{'name':'モンスター4','hp':'HP:30','level':'☆','description':'ダメージ配置：4列×2行<br/><br/>【急所】奇数'},
+{'name':'モンスター5','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】12'},
+{'name':'モンスター6','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】同じ数字が2つ以上含まれる'},
+{'name':'モンスター7','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】奇数'},
+{'name':'モンスター8','hp':'HP:30','level':'☆','description':'ダメージ配置：2列×2行<br/><br/>【急所】3'},
+{'name':'モンスター9','hp':'HP:30','level':'☆','description':'ダメージ配置：2列×2行<br/><br/>【急所】奇数'},
 ];
 operations = [
-  {"name":"記号", "img":"img/add.png"}, {"name":"記号", "img":"img/sub.png"}, {"name":"記号", "img":"img/mul.png"}, {"name":"記号", "img":"img/div.png"},
+  {"name":"戦士", "img":"img/mul.png"}, {"name":"戦士", "img":"img/sub.png"}, {"name":"魔法使い", "img":"img/mul.png"}, {"name":"魔法使い", "img":"img/div.png"}, {"name":"僧侶", "img":"img/add.png"}, {"name":"僧侶", "img":"img/div.png"}, {"name":"盗賊", "img":"img/add.png"}, {"name":"盗賊", "img":"img/sub.png"},
 ];
 attacks = [
-  {"num":10, "name":"攻撃", "lv":"1", "img":"img/one.png"}, {"num":10, "name":"攻撃", "lv":"2", "img":"img/two.png"}, {"num":10, "name":"攻撃", "lv":"3", "img":"img/three.png"}, {"num":10, "name":"攻撃", "lv":"4", "img":"img/four.png"}, {"num":10, "name":"攻撃", "lv":"5", "img":"img/five.png"},
+  {"num":3, "name":"ダメージ", "img":"img/one.png"}, {"num":3, "name":"ダメージ", "img":"img/two.png"}, {"num":3, "name":"ダメージ", "img":"img/three.png"}, {"num":3, "name":"ダメージ", "img":"img/four.png"}, {"num":3, "name":"ダメージ", "img":"img/five.png"},
+];
+skills = [
+  {"name":"※スキル", "img":"img/cmd_g.png"}, {"name":"※スキル", "img":"img/cmd_m.png"}, {"name":"※スキル", "img":"img/cmd_o.png"}, {"name":"※スキル", "sign":"⇔"},
 ];
 promotions = [
-  {"num":1, "name":"ndqz遊び方", "img":"qr_play.gif", "description":"※上記QRコードを読み取ると『遊び方』が表示されます。"},
-  {"num":3, "name":"ndqzルール", "img":"qr_rule.gif", "description":"※上記QRコードを読み取ると『ルール』が表示されます。"},
+  {"num":1, "name":"heroz遊び方", "img":"qr_play.gif", "description":"※上記QRコードを読み取ると『遊び方』が表示されます。"},
 ];
 
 Cards = function() {
@@ -76,7 +73,8 @@ $(function() {
   cards.add(monsters);
   cards.add(operations);
   cards.add(attacks);
-  cards.add(promotions);
+  cards.add(skills);
+  //cards.add(promotions);
 
   var n = 0;
   cards.each(function() {
@@ -127,10 +125,12 @@ $(function() {
   position: relative;
   font-size: 1em;
 }
+/* 未使用
 .card .head_line {
   margin-top: 3px;
   padding-left: 50px;
 }
+*/
 .card .level {
   float: left;
   font-weight: bold;
@@ -152,7 +152,7 @@ $(function() {
   width: 48mm;
   height: 48mm;
 }
-.card .skill {
+.card .label {
   position: absolute;
   top: 50mm;
   left: 5mm;
