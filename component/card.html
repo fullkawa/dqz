@@ -4,6 +4,8 @@
 
   Creative Commons 表示 2.1 日本 License
   http://creativecommons.org/licenses/by/2.1/jp/
+
+  written by fullkawa and new1ro
 -->
 <html>
 <head>
@@ -16,40 +18,42 @@
   2. MTGのカード(幅63mm, 高さ89mm)用スリーブに入れる。
      不要カードを補強のため一緒に入れるとなお良し。
 -->
-  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript">
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
 /*
  * カードデータ
  *
  * 特別な意味を持つパラメータ
  * - num: カードの枚数
- * - img: 画像
  *
  * 上記以外のパラメータはすべて出現順に、パラメータ名と同じクラス名のテキストとして
  * 追加されます。
  */
-monsters = [
-{'name':'モンスター1','hp':'HP:30','level':'☆','description':'ダメージ配置：5列×1行<br/><br/>【急所】5の倍数'},
-{'name':'モンスター2','hp':'HP:30','level':'☆','description':'ダメージ配置：5列×1行<br/><br/>【急所】奇数'},
-{'name':'モンスター3','hp':'HP:30','level':'☆','description':'ダメージ配置：4列×2行<br/><br/>【急所】7,14'},
-{'name':'モンスター4','hp':'HP:30','level':'☆','description':'ダメージ配置：4列×2行<br/><br/>【急所】奇数'},
-{'name':'モンスター5','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】12'},
-{'name':'モンスター6','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】同じ数字が2つ以上含まれる'},
-{'name':'モンスター7','hp':'HP:30','level':'☆','description':'ダメージ配置：3列×2行<br/><br/>【急所】奇数'},
-{'name':'モンスター8','hp':'HP:30','level':'☆','description':'ダメージ配置：2列×2行<br/><br/>【急所】3'},
-{'name':'モンスター9','hp':'HP:30','level':'☆','description':'ダメージ配置：2列×2行<br/><br/>【急所】奇数'},
-];
-operations = [
-  {"name":"戦士", "img":"img/mul.png"}, {"name":"戦士", "img":"img/sub.png"}, {"name":"魔法使い", "img":"img/mul.png"}, {"name":"魔法使い", "img":"img/div.png"}, {"name":"僧侶", "img":"img/add.png"}, {"name":"僧侶", "img":"img/div.png"}, {"name":"盗賊", "img":"img/add.png"}, {"name":"盗賊", "img":"img/sub.png"},
-];
-attacks = [
-  {"num":3, "name":"ダメージ", "img":"img/one.png"}, {"num":3, "name":"ダメージ", "img":"img/two.png"}, {"num":3, "name":"ダメージ", "img":"img/three.png"}, {"num":3, "name":"ダメージ", "img":"img/four.png"}, {"num":3, "name":"ダメージ", "img":"img/five.png"},
-];
-skills = [
-  {"name":"※スキル", "img":"img/cmd_g.png"}, {"name":"※スキル", "img":"img/cmd_m.png"}, {"name":"※スキル", "img":"img/cmd_o.png"}, {"name":"※スキル", "sign":"⇔"},
-];
-promotions = [
-  {"num":1, "name":"heroz遊び方", "img":"qr_play.gif", "description":"※上記QRコードを読み取ると『遊び方』が表示されます。"},
+data = [
+{'name':'ボス','field':'配置：3列×2行','value':'LP: 30','description':'【急所】23,29'},
+{'name':'強敵1','field':'配置：5列×1行','value':'LP: 15','description':'★25以上で倒したとき、スペシャルを1枚得る'},
+{'name':'強敵2','field':'配置：3列×2行','value':'LP: 15','description':'【急所】11,13'},
+{'name':'ザコ1','field':'配置：5列×1行','value':'LP: 10','description':'★20以上で倒したとき、スペシャルを1枚得る'},
+{'name':'ザコ2','field':'配置：3列×2行','value':'LP: 10','description':'★20以上で倒したとき、スペシャルを1枚得る'},
+{'name':'ザコ3','field':'配置：3列×2行','value':'LP: 10','description':'★計算式に同じ数字が2枚以上含まれるとき、スペシャルを1枚得る'},
+{'name':'ザコ4','field':'配置：3列×2行','value':'LP: 10','description':'-5以下でやり過ごすことができる'},
+{'name':'ザコ5','field':'配置：4列×2行','value':'LP: 10','description':'★20以上で倒したとき、スペシャルを1枚得る'},
+{'num':'3','name':'※フィールド','sign':'5',},
+{'num':'3','name':'※フィールド','sign':'4',},
+{'num':'3','name':'※フィールド','sign':'3',},
+{'num':'3','name':'※フィールド','sign':'2',},
+{'num':'3','name':'※フィールド','sign':'1',},
+{'name':'戦士','sign':'+','description':'【特技】ゲーム開始時に「()」を得る'},
+{'name':'盗賊','sign':'-','description':'【特技】自分の行動順を遅らせることができる'},
+{'name':'魔法使い','sign':'×','description':'【特技】記号を「÷」にすることができる'},
+{'name':'占い師','sign':'÷','description':'【特技】自分のターンでフィールドを1枚オープンできる'},
+{'name':'騎士','sign':'+','description':'【特技】自分のターンでフィールドを1列/行広くできる'},
+{'name':'※スペシャル','sign':'()','description':'任意の記号を挟む二項をカッコで囲う'},
+{'name':'※スペシャル','sign':'+3','description':'任意の数字を+3する'},
+{'name':'※スペシャル','sign':'×2','description':'任意の数字を×2する'},
+{'name':'※スペシャル','sign':'⇔','description':'任意の記号を挟む二項を入れ替える'},
+{'name':'※スペシャル','sign':'0','description':'任意の数字を0にする'},
 ];
 
 Cards = function() {
@@ -70,11 +74,7 @@ Cards = function() {
 
 $(function() {
   var cards = new Cards();
-  cards.add(monsters);
-  cards.add(operations);
-  cards.add(attacks);
-  cards.add(skills);
-  //cards.add(promotions);
+  cards.add(data);
 
   var n = 0;
   cards.each(function() {
@@ -114,8 +114,8 @@ $(function() {
     }
   });
 });
-  </script>
-  <style type="text/css">
+</script>
+<style type="text/css">
 .card {
   width: 48mm; /* 63mm - padding * 2 - ? */
   height: 72mm; /* 89mm - padding * 2 - ? */
@@ -125,38 +125,31 @@ $(function() {
   position: relative;
   font-size: 1em;
 }
-/* 未使用
-.card .head_line {
-  margin-top: 3px;
-  padding-left: 50px;
+.card .name {
+  font-size: 1.2em;
+  text-align: center;
+  background: #666666;
+  color: #ffffff;
+  margin: -1mm;
+  padding: 0.3em 0;
+  line-height: 1.3em;
+  margin-bottom: 2mm;
 }
-*/
-.card .level {
+.card .field {
   float: left;
-  font-weight: bold;
+  font-size: 0.8em;
 }
-.card .hp {
+.card .value {
   float: right;
   text-align: right;
+  font-size: 0.8em;
   font-weight: bold;
   color: red;
-}
-.card .name {
-  font-size: 1.5em;
-  text-align: center;
-}
-.card .illustration {
-  position: absolute;
-  top: 18mm;
-  text-align: center;
-  width: 48mm;
-  height: 48mm;
 }
 .card .label {
   position: absolute;
   top: 50mm;
   left: 5mm;
-  font-size: 1em;
   font-weight: bold;
   color: black;
   background-color: white;
@@ -164,17 +157,28 @@ $(function() {
 }
 .card .description {
   position: absolute;
-  top: 50mm;
+  top: 51mm;
   left: 0mm;
-  height: 6em;
-  width: 44mm;
-  margin: 5mm;
+  height: 16mm;
+  width: 43mm;
+  margin: 4mm;
   padding: 2mm;
-  border: solid 1px black;
-  font-size: 0.8em;
-  color: black;
-  background-color: white;
+  border: solid 1.5mm #eeeeee;
+  font-size: 0.6em;
+  color: #333333;
+  background-color: #ffffff;
   opacity: 0.8;
+}
+.card .sign {
+  text-align: center;
+  font-size: 20mm;
+  font-family: 'Telex', sans-serif;
+  font-weight: bold;
+  margin: 0 -1mm;
+  padding: 8.5mm 0;
+  line-height: 1em;
+  background: #cccccc;
+  color: #ffffff;
 }
 .break {
   clear: both;
@@ -185,7 +189,7 @@ $(function() {
   border: 0px;
   margin: 10mm;
 }
-  </style>
+</style>
 </head>
 <body>
 </body>
