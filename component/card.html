@@ -116,6 +116,15 @@ $(function() {
 });
 </script>
 <style type="text/css">
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+body {
+    margin: 0;
+}
 .card {
   width: 48mm; /* 63mm - padding * 2 - ? */
   height: 72mm; /* 89mm - padding * 2 - ? */
@@ -177,8 +186,8 @@ $(function() {
   margin: 0 -1mm;
   padding: 8.5mm 0;
   line-height: 1em;
-  background: #cccccc;
-  color: #ffffff;
+  background: #aaaaaa;
+  color: #fafafa;
 }
 .break {
   clear: both;
