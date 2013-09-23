@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+ * このファイルのライセンス *
+
+  Creative Commons 表示 2.1 日本 License
+  http://creativecommons.org/licenses/by/2.1/jp/
+
+  written by fullkawa and new1ro
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Xan カード</title>
+<!--
+ * カードの作り方 *
+
+  1. ブラウザから出力し(用紙サイズはA4)、ハサミで切る。
+  2. MTGのカード(幅63mm, 高さ89mm)用スリーブに入れる。
+     不要カードを補強のため一緒に入れるとなお良し。
+-->
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+/*
+ * カードデータ
+ *
+ * 特別な意味を持つパラメータ
+ * - num: カードの枚数
+ *
+ * 上記以外のパラメータはすべて出現順に、パラメータ名と同じクラス名のテキストとして
+ * 追加されます。
+ */
+data = [
+{'num':'3','name':'　','label':'[Field]','sign':'5',},
+{'num':'3','name':'　','label':'[Field]','sign':'4',},
+{'num':'3','name':'　','label':'[Field]','sign':'3',},
+{'num':'3','name':'　','label':'[Field]','sign':'2',},
+{'num':'3','name':'　','label':'[Field]','sign':'1',},
+{'name':'戦士','label':'[Class]','sign':'+',},
+{'name':'盗賊','label':'[Class]','sign':'-',},
+{'name':'魔法使い','label':'[Class]','sign':'×',},
+{'name':'占い師','label':'[Class]','sign':'÷',},
+{'name':'先制','label':'[Skill]','sign':'( )','description':'【戦士専用】<br/>任意のクラスカードの記号を先に計算する'},
+{'name':'抜け道','label':'[Skill]','sign':'※','description':'【盗賊専用】<br/>自分のクラスカードを空いているところへ移動する'},
+{'name':'変身','label':'[Skill]','sign':'+-÷×','description':'【魔法使い専用】<br/>自分のクラスカードを+-÷×いずれかの記号として扱う'},
+{'name':'透視','label':'[Skill]','sign':'∴','description':'【占い師専用】<br/>【自分の手番】 任意のフィールドカード1枚を表向きにする'},
+{'name':'地滑り','label':'[Skill]','sign':'⇒','description':'<br/>任意の一列(横)のフィールドカードを1つずつ右へずらす'},
+{'name':'強化','label':'[Skill]','sign':'×2','description':'<br/>【自分の手番】 任意の数字を×2する'},
+];
+
+Cards = function() {
+  var self = this;
+  var _cards = [];
+  this.add = function(cards) {
+    if (!$.isArray(cards)) {
+      throw new Exception('cards must be array.');
+    }
+    for (var i=0; i<cards.length; i++) {
+      _cards.push(cards[i]);
+    }
+  };
+  this.each = function(func) {
+    $(_cards).each(func);
+  };
+}
+
+$(function() {
+  var cards = new Cards();
+  cards.add(data);
+
+  var n = 0;
+  cards.each(function() {
+    if (this['num'] == undefined) {
+      this['num'] = 1;
+    }
+    for (i = 0; i < this['num']; i++) {
+      n++;
+      var card = $('<div class="card"></div>');
+
+      // 改行
+      if (n % 3 == 1) {
+        card.addClass('break');
+      }
+      // 改ページ
+      if (n % 9 == 1 && n != 1) {
+        $('<hr class="pgbreak" />').appendTo('body');
+      }
+
+      for (key in this) {
+        switch (key) {
+        case 'num':
+          // no operation
+          break;
+
+        case 'img':
+          var image = $('<div class="illustration"><img src="' + this['img'] + '"></div>');
+          image.appendTo(card);
+          break;
+
+        default:
+          var elm = $('<div class="' + key + '">' + this[key] + '</div>');
+          elm.appendTo(card);
+        }
+      }
+      card.appendTo('body');
+    }
+  });
+});
+</script>
+<style type="text/css">
+.card {
+  width: 48mm; /* 63mm - padding * 2 - ? */
+  height: 72mm; /* 89mm - padding * 2 - ? */
+  border: solid 1px black;
+  padding: 5mm;
+  float: left;
+  position: relative;
+  font-size: 1em;
+}
+.card .name {
+  font-size: 1.2em;
+  text-align: center;
+  background: #666666;
+  color: #ffffff;
+  margin: -1mm;
+  padding: 0.3em 0;
+  line-height: 1.3em;
+  margin-bottom: 2mm;
+}
+.card .field {
+  float: left;
+  font-size: 0.8em;
+}
+.card .value {
+  float: right;
+  text-align: right;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: red;
+}
+.card .label {
+  position: absolute;
+  top: 50mm;
+  left: 5mm;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  opacity: 0.9;
+}
+.card .description {
+  position: absolute;
+  top: 51mm;
+  left: 0mm;
+  height: 16mm;
+  width: 43mm;
+  margin: 4mm;
+  padding: 2mm;
+  border: solid 1.5mm #eeeeee;
+  font-size: 0.6em;
+  color: #333333;
+  background-color: #ffffff;
+  opacity: 0.8;
+}
+.card .sign {
+  text-align: center;
+  font-size: 20mm;
+  font-family: 'Telex', sans-serif;
+  font-weight: bold;
+  margin: 0 -1mm;
+  padding: 8.5mm 0;
+  line-height: 1em;
+  background: #cccccc;
+  color: #ffffff;
+}
+.break {
+  clear: both;
+}
+.pgbreak {
+  clear: both;
+  page-break-after: always;
+  border: 0px;
+  margin: 10mm;
+}
+</style>
+</head>
+<body>
+</body>
+</html>

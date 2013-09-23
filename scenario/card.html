@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!--
+ * このファイルのライセンス *
+
+  Creative Commons 表示 2.1 日本 License
+  http://creativecommons.org/licenses/by/2.1/jp/
+
+  written by fullkawa and new1ro
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Xan カード</title>
+<!--
+ * カードの作り方 *
+
+  1. ブラウザから出力し(用紙サイズはA4)、ハサミで切る。
+  2. MTGのカード(幅63mm, 高さ89mm)用スリーブに入れる。
+     不要カードを補強のため一緒に入れるとなお良し。
+-->
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+/*
+ * カードデータ
+ *
+ * 特別な意味を持つパラメータ
+ * - num: カードの枚数
+ *
+ * 上記以外のパラメータはすべて出現順に、パラメータ名と同じクラス名のテキストとして
+ * 追加されます。
+ */
+data = [
+{'name':'ありふれた小さな村','field':'01-Z-001','label':'[Scene]','description':'配置：3列×2行'},
+{'name':'ゴブリンが現れた！','field':'02-F-001','label':'[Battle]','description':'【クリア条件】 7以上<br/><br/>【クリティカル条件】 14以上'},
+{'name':'ゴブリンを撃退せよ！','field':'03-F-001','label':'[Battle]','description':'【クリア条件】 7以上<br/><br/>【クリティカル条件】 クリア＆偶数'},
+{'name':'ゴブリン(ボス)を撃退せよ！','field':'04-F-001','label':'[Battle]','description':'【クリア条件】 10以上<br/><br/>【クリティカル条件】 13,17,19'},
+{'name':'アジトの場所を占う','field':'05-Z-001','label':'[Event]','description':'【クリア条件】 0～2<br/><br/>【クリティカル条件】 0'},
+{'name':'モンスターの巣穴','field':'06-F-001','label':'[Scene]','description':'配置：5列×1行'},
+{'name':'見張りを倒せ！','field':'07-F-001','label':'[Battle]','description':'【クリア条件】 -3以下<br/><br/>【クリティカル条件】 -10以下'},
+{'name':'ゴブリン(ボス)を倒せ！','field':'08-F-001','label':'[Battle]','description':'【クリア条件】 前より大きい値<br/><br/>【ファンブル条件】 3の倍数'},
+{'name':'さあ、トドメをさせ！','field':'09-F-001','label':'[Battle]','description':'【クリア条件】 10以上<br/><br/>【クリティカル条件】 同値2枚以上'},
+];
+
+Cards = function() {
+  var self = this;
+  var _cards = [];
+  this.add = function(cards) {
+    if (!$.isArray(cards)) {
+      throw new Exception('cards must be array.');
+    }
+    for (var i=0; i<cards.length; i++) {
+      _cards.push(cards[i]);
+    }
+  };
+  this.each = function(func) {
+    $(_cards).each(func);
+  };
+}
+
+$(function() {
+  var cards = new Cards();
+  cards.add(data);
+
+  var n = 0;
+  cards.each(function() {
+    if (this['num'] == undefined) {
+      this['num'] = 1;
+    }
+    for (i = 0; i < this['num']; i++) {
+      n++;
+      var card = $('<div class="card"></div>');
+
+      // 改行
+      if (n % 3 == 1) {
+        card.addClass('break');
+      }
+      // 改ページ
+      if (n % 9 == 1 && n != 1) {
+        $('<hr class="pgbreak" />').appendTo('body');
+      }
+
+      for (key in this) {
+        switch (key) {
+        case 'num':
+          // no operation
+          break;
+
+        case 'img':
+          var image = $('<div class="illustration"><img src="' + this['img'] + '"></div>');
+          image.appendTo(card);
+          break;
+
+        default:
+          var elm = $('<div class="' + key + '">' + this[key] + '</div>');
+          elm.appendTo(card);
+        }
+      }
+      card.appendTo('body');
+    }
+  });
+});
+</script>
+<style type="text/css">
+.card {
+  width: 48mm; /* 63mm - padding * 2 - ? */
+  height: 72mm; /* 89mm - padding * 2 - ? */
+  border: solid 1px black;
+  padding: 5mm;
+  float: left;
+  position: relative;
+  font-size: 1em;
+}
+.card .name {
+  font-size: 1.2em;
+  text-align: center;
+  background: #666666;
+  color: #ffffff;
+  margin: -1mm;
+  padding: 0.3em 0;
+  line-height: 1.3em;
+  margin-bottom: 2mm;
+}
+.card .field {
+  float: left;
+  font-size: 0.8em;
+}
+.card .value {
+  float: right;
+  text-align: right;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: red;
+}
+.card .label {
+  position: absolute;
+  top: 50mm;
+  left: 5mm;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  opacity: 0.9;
+}
+.card .description {
+  position: absolute;
+  top: 51mm;
+  left: 0mm;
+  height: 16mm;
+  width: 43mm;
+  margin: 4mm;
+  padding: 2mm;
+  border: solid 1.5mm #eeeeee;
+  font-size: 0.6em;
+  color: #333333;
+  background-color: #ffffff;
+  opacity: 0.8;
+}
+.card .sign {
+  text-align: center;
+  font-size: 20mm;
+  font-family: 'Telex', sans-serif;
+  font-weight: bold;
+  margin: 0 -1mm;
+  padding: 8.5mm 0;
+  line-height: 1em;
+  background: #cccccc;
+  color: #ffffff;
+}
+.break {
+  clear: both;
+}
+.pgbreak {
+  clear: both;
+  page-break-after: always;
+  border: 0px;
+  margin: 10mm;
+}
+</style>
+</head>
+<body>
+</body>
+</html>
