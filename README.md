@@ -235,4 +235,4 @@ _フィールドカードをオープンして最終的な計算結果を算出�
 よって、あなたはこのリポジトリをForkし、ゲームのルール・カード等を自由に作成・修正することができます！
 さらに言うなら商品化し、販売することも自由です。  
 『Xan』は"open-design-game"でもあるのです。  
-→ ["open-design-game"とは？](http://open-design-games.net/index.php/about)  
+→ ["open-design-game"とは？](http://open-design-games.net/?page_id=14)  
